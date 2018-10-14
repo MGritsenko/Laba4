@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>MyCanvas.qml</file>
+        <file>MyTopBar.qml</file>
+        <file>SelectionRectangle.qml</file>
+    </qresource>
+</RCC>
