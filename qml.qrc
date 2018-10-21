@@ -4,5 +4,6 @@
         <file>MyCanvas.qml</file>
         <file>MyTopBar.qml</file>
         <file>SelectionRectangle.qml</file>
+        <file>CustomSlider.qml</file>
     </qresource>
 </RCC>

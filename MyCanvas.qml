@@ -11,6 +11,13 @@ Item {
 
     property string primitiveType: "Точка"
 
+    onPrimitiveTypeChanged: {
+        for(var i = 0; i < polygon.length; i++){
+            polygon[i][0] = rotPolygon[i][0]
+            polygon[i][1] = rotPolygon[i][1]
+        }
+    }
+
     onWidthChanged: {
         canvas.requestPaint();
     }
@@ -54,6 +61,15 @@ Item {
                 drawLine(ctx, canvas)
                 break
             case "Полигон":
+                drawPolygon(ctx, canvas)
+                break
+            case "Масштаб":
+                drawPolygon(ctx, canvas)
+                break
+            case "Вращение":
+                drawPolygon(ctx, canvas)
+                break
+            case "Перемещение":
                 drawPolygon(ctx, canvas)
                 break
             }
@@ -252,6 +268,66 @@ Item {
 
         canvas.clear()
         drawDot(canvas.ctx, canvas)
+        canvas.requestPaint();
+    }
+
+    function doScale(degrees){
+        if(points.length == 0){
+            return
+        }
+
+        var xMin = polygon[0][0]
+        var yMin = polygon[0][1]
+        var xMax = 0
+        var yMax = 0
+
+        for(var i = 0; i < polygon.length - 1; i++){
+            if(xMin > polygon[i][0]){
+                xMin = polygon[i][0]
+            }
+
+            if(yMin > polygon[i][1]){
+                yMin = polygon[i][1]
+            }
+
+            if(xMax < polygon[i][0]){
+                xMax = polygon[i][0]
+            }
+
+            if(yMax < polygon[i][1]){
+                yMax = polygon[i][1]
+            }
+        }
+
+        var cenX = xMin + ((xMax - xMin) / 2)
+        var cenY = yMin + ((yMax - yMin) / 2)
+
+        //x is transformed to s(x - c) + c
+        //y is transformed to t(y - d) + d
+
+        var scale = degrees * 2 / 360
+        for(i = 0; i < rotPolygon.length - 1; i++){
+            rotPolygon[i][0] = scale * (polygon[i][0] - cenX) + cenX
+            rotPolygon[i][1] = scale * (polygon[i][1] - cenY) + cenY
+        }
+        canvas.clear()
+        drawDot(canvas.ctx, canvas)
+        canvas.requestPaint();
+    }
+
+    function doTranslateX(dragX){
+        for(var i = 0; i < rotPolygon.length - 1; i++){
+            rotPolygon[i][0] = (polygon[i][0]) + dragX
+        }
+        canvas.clear()
+        canvas.requestPaint();
+    }
+
+    function doTranslateY(dragY){
+        for(var i = 0; i < rotPolygon.length - 1; i++){
+            rotPolygon[i][1] = (polygon[i][1]) + dragY
+        }
+        canvas.clear()
         canvas.requestPaint();
     }
 }

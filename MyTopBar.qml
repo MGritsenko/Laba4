@@ -14,7 +14,7 @@ Rectangle {
     signal isCrossed()
 
     property string primitiveType: "Tочка"
-    property int rotAngle: rotationSlider.value
+    property int rotAngle: rotationSlider.sliderValue
 
     Button{
         id: clearBt
@@ -70,33 +70,14 @@ Rectangle {
         }
     }
 
-    Slider{
+    CustomSlider{
         id: rotationSlider
+
         anchors{
             left: crossBt.right
-            leftMargin: 20
-            verticalCenter: parent.verticalCenter
-            right: sliderVal.left
-            rightMargin: 20
-        }
-        from: 0
-        to: 360
-        value: 180
-        stepSize: 1
-    }
-
-    Text {
-        id: sliderVal
-        anchors{
-            //left: rotationSlider.right
-           // leftMargin: 20
             verticalCenter: parent.verticalCenter
             right: column.left
-            rightMargin: 40
         }
-        text: String(rotationSlider.value)
-        font.pointSize: 14
-        color: "white"
     }
 
     ButtonGroup {
@@ -104,6 +85,8 @@ Rectangle {
 
         onClicked: {
             primitiveType = button.text
+
+            rotationSlider.reset()
         }
     }
 
@@ -114,6 +97,51 @@ Rectangle {
             right: topBar.right
             rightMargin: 10
             verticalCenter: parent.verticalCenter
+        }
+
+        RadioButton {
+            id: bTrans
+            checked: true
+            text: qsTr("Перемещение")
+
+            contentItem: Text {
+                text: bTrans.text
+                font: bTrans.font
+                opacity: enabled ? 1.0 : 0.3
+                color: "white"
+                verticalAlignment: Text.AlignVCenter
+                leftPadding: bTrans.indicator.width + bTrans.spacing
+            }
+        }
+
+        RadioButton {
+            id: bRot
+            checked: true
+            text: qsTr("Вращение")
+
+            contentItem: Text {
+                text: bRot.text
+                font: bRot.font
+                opacity: enabled ? 1.0 : 0.3
+                color: "white"
+                verticalAlignment: Text.AlignVCenter
+                leftPadding: bRot.indicator.width + bRot.spacing
+            }
+        }
+
+        RadioButton {
+            id: bScale
+            checked: true
+            text: qsTr("Масштаб")
+
+            contentItem: Text {
+                text: bScale.text
+                font: bScale.font
+                opacity: enabled ? 1.0 : 0.3
+                color: "white"
+                verticalAlignment: Text.AlignVCenter
+                leftPadding: bScale.indicator.width + bScale.spacing
+            }
         }
 
         RadioButton {

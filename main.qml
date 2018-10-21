@@ -53,7 +53,11 @@ Window {
         }
 
         onRotAngleChanged: {
-            canvas.doRotation(rotAngle)
+            if(canvas.primitiveType == "Вращение"){
+                canvas.doRotation(rotAngle)
+            } else if (canvas.primitiveType == "Масштаб") {
+                canvas.doScale(rotAngle)
+            }
         }
     }
 
@@ -63,8 +67,6 @@ Window {
         width: parent.width
         height: parent.height - topBar.height
         y: topBar.height
-
-
 
         MouseArea {
             id:mouseArea
@@ -92,6 +94,18 @@ Window {
             id: selectionRectangle
             width: 150
             height: 150
+
+            onDragXChanged: {
+                if(canvas.primitiveType == "Перемещение"){
+                    canvas.doTranslateX(dragX)
+                }
+            }
+
+            onDragYChanged: {
+                if(canvas.primitiveType == "Перемещение"){
+                    canvas.doTranslateY(dragY)
+                }
+            }
         }
     }
 
