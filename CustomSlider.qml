@@ -31,7 +31,7 @@ Item{
         color: "white"
     }
 
-    function reset(){
-        slider.value = 0
+    function reset(myVal){
+        slider.value = myVal
     }
 }

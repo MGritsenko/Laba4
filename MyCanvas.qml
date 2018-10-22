@@ -272,7 +272,7 @@ Item {
     }
 
     function doScale(degrees){
-        if(points.length == 0){
+        if(polygon.length == 0){
             return
         }
 

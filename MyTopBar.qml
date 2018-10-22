@@ -86,7 +86,12 @@ Rectangle {
         onClicked: {
             primitiveType = button.text
 
-            rotationSlider.reset()
+            if(primitiveType == "Масштаб"){
+                rotationSlider.reset(180)
+            }
+            else {
+                rotationSlider.reset(0)
+            }
         }
     }
 

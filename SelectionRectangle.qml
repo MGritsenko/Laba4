@@ -13,8 +13,8 @@ Item {
     function create(){
         if(selection === null)
             selection = selectionComponent.createObject(parent,
-                                                    {"x": parent.width / 4,
-                                                    "y": parent.height / 4,
+                                                    {"x": 0,
+                                                    "y": 0,
                                                     "width": parent.width / 8,
                                                     "height": parent.width / 8})
     }
